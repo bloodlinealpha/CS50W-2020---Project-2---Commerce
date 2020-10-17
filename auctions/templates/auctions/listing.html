@@ -1,0 +1,134 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <div class="listing-header-container">
+        <div class="active-title-list"><h2>Listing:</h2></div>
+        <div class="active-watch-list">
+            <!-- add if for if already added to watch list -->
+            {% if watchlists and user.is_authenticated  %}
+                <a href="{% url 'watchlist' %}">Already Added to Watch List</a>
+            {% elif user.is_authenticated and listing.active == "Yes" %}
+            <form action="{% url 'watchlist' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{ listing.id }}">
+                <button class="btn btn-primary" name="add_watchlist" type="submit">Add to Watch List</button>
+            </form>
+            
+            {% endif %}
+        </div>
+        
+    </div>
+    
+    <div class="active-listing-center">
+        <div class="active-listing-container">
+    		<div  class="title-heading">
+    			<div class="category-heading">
+    			<!-- add title hyperlink -->
+    				<div class="title"><h3>{{listing.title|title}}</h3></div>
+    				<div class="category"><a href="#">#{{ listing.category }}</a></div>
+    			</div>
+    			
+
+    			<div>Created By: {{ listing.user|title }} ... Date: {{ listing.create_date|date:"M d, Y" }} </div>
+    		</div>
+    	<!-- add image hyperlink -->
+    		<div class="active-listing-img">
+    			<img src="{{ listing.url }}">
+    		</div>
+            <div class="active-listing-des">Description:
+                <div>
+                    {{ listing.description }}
+                </div>
+            </div>
+    		<div>
+                <!-- remove starting price -->
+    			{% load humanize %}
+    			<div>Starting Bid: ${{ listing.starting_price|floatformat:"-2"|intcomma }}</div>
+    			
+    		</div> 
+        </div>
+        <div class="active-listing-bid-container">
+            {% for winner in winning %}
+            <div class="active-title-list">
+                <div class="active_title">
+                    <h2>Bids</h2>
+                </div>
+                {% if user == listing.user and listing.active == "Yes"  %}
+                <div class="active_title_end">
+                    <form action="{% url 'listing' listing.id %}" method="post">
+                        {% csrf_token %}
+                        <button class="btn btn-primary" type="submit" name="end_listing">End Listing</button>
+                    </form>
+                </div>
+
+                {% endif %}
+            </div>
+            <div>Highest Bid: ${{winner.bid_price|floatformat:"-2"|intcomma}} by {{winner.user|title}}</div>
+            {% endfor %}
+            <div>
+                Past Bids: 
+                {% for bid in bids %}
+                    {% if bid.bid_price == winning.first.bid_price %}
+                    <!-- do nothing -->
+                    {% else %}
+                    
+                       <div> ${{ bid.bid_price|floatformat:"-2"|intcomma}} by User: {{bid.user}} at {{ bid.create_bid}}</div>
+                    
+                    {% endif %}
+                {% endfor %}
+            </div>
+            {% if user.is_authenticated %}
+            <div id="bid_form_container">
+            {% if listing.active == 'Yes' %}
+                <form id="bid_form" action="{% url 'listing' listing.id %}" method="post">
+                    {% csrf_token %}
+                    <label for="place_bid">Place a Bid: $</label>
+                    <input id="place_bid" type="number" name="bid" min="0" max="999999" step=".01" placeholder="Enter bid here">
+                    <button onclick="return confirm('Are you sure you want to place this bid?')" class="btn btn-primary" type="submit" name="bid_submit">Place Bid</button>
+                </form>
+            {% else %}
+            <div class="winning_bid">
+                <div><h5>Bidding has ended!</h5></div>
+                <div><h3>Congratulations: {{ winner.user|title }}!</h3></div>
+            </div>
+            
+            {% endif%}
+                {% if messages %}
+                {% for message in messages %}
+                <div class="{{message.tags}}">{{ message }}</div>
+                {% endfor %}
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+        <div id="comments_container">
+            <div>
+                <h2>Comments</h2>
+                <div class="comments_div">      
+                    {% for comment in comments %}
+                    <div class="user_comments_group">
+                        <div class="user_comment_info">
+                            <div class="user_comment_name">{{comment.user|title}}</div>
+                            <div class="user_comment_date">{{ comment.create_comments }}</div>
+                    </div>
+                        <div class="user_comments">{{comment.comments|capfirst }}</div>
+                    </div>
+                    {% endfor %} 
+                </div>
+                {% if user.is_authenticated %}
+                <div>
+                    <form action="{% url 'listing' listing.id %}" method="post">
+                        {% csrf_token %}
+                        <label>Add a Comment:</label>
+                        <textarea rows="4" name="comment" placeholder="Add a comment here"></textarea>
+                        <button type="submit" name="add_comment">Add Comment</button>
+                    </form>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+   
+
+
+{% endblock %}

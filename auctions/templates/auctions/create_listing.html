@@ -1,0 +1,57 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<div class="create-container">
+    <div>
+        <h2>Create a New Listing</h2>
+    </div>
+    
+    <div class="form-container">
+        <form id="create_form" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <div>
+                    <label for="listing_title">Listing Title:</label>
+                </div>
+                
+            <input id="listing_title" type="text" name="title">
+            </div>
+            <div class="form-group">
+                <div>
+                   <label for="listing_description">Description: (limit 500 characters)</label>
+                </div>
+                <textarea id="listing_description" rows="4" name="description"></textarea>
+            </div>
+            <div class="form-group">
+                <div>
+                   <label for="listing_category">Select a Category</label>
+                </div>
+                <select id="listing_category" name="category">
+                    <option selected="" disabled>Select a Category</option>
+                    {% for key, value in categories %}
+                    <option value="{{ value }}">{{ key }}</option>
+                    {% endfor %}   
+                </select>
+            </div>
+            <div class="form-group">
+                <div>
+                    <label for="listing_price">Set Starting Bid Price:</label>
+                </div>
+                <input id="listing_price" type="number" name="starting_price" value="0.00" min="0" max="999999" step="0.01">
+            </div>
+            <div class="form-group">
+                <div>
+                    <label id="listing_url">Paste an image URL:</label>
+                </div>
+                <input id="listing_url" type="url" name="image_url">
+            </div>
+            <div class="form-group">
+                <button class ="btn btn-primary" type="submit">Submit</button>
+            </div>
+        </form>     
+    </div>
+</div>
+    
+
+
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Your Watchlist:</h2>
+
+
+    {% for listing in listings %}
+    
+    <div class="active-listing-center">
+        <div class="active-listing-container">
+    		<div  class="title-heading">
+    			<div class="category-heading">
+    			<!-- add title hyperlink -->
+    				<div class="title"><a href="{% url 'listing' listing.id %}"><h3>{{listing.title|title}}</h3></a></div>
+    				<div class="category"><a href="#">#{{ listing.category }}</a></div>
+    			</div>
+    			
+
+    			<div>Created By: {{ listing.user|title }} ... Date: {{ listing.create_date|date:"M d, Y" }} </div>
+    		</div>
+    	<!-- add image hyperlink -->
+    		<div class="active-listing-img">
+    			<img src="{{ listing.url }}">
+    		</div>
+    		<div>
+                <!-- remove starting price -->
+    			{% load humanize %}
+    			<div>Starting Bid: ${{ listing.starting_price|floatformat:"-2"|intcomma }}</div>
+    			<div>Current Bid:</div>
+                <div class="watchlist_remove">
+                    <form action="{% url 'watchlist' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="id" value="{{ listing.id }}">
+                        <button class="btn btn-primary" type="submit" name="remove_watchlist">Remove From Watchlist</button>
+                    </form>  
+                </div>
+    		</div>
+        </div>
+    </div>
+    {% empty %}
+        <h2>Your Watchlist is Empty...  <a href="{% url 'index'%}">View listings</a></h2>
+    {% endfor %}
+
+
+{% endblock %}

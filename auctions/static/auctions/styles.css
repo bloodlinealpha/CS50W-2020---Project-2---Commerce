@@ -1,0 +1,217 @@
+body {
+    padding: 10px;
+}
+.active-listing-center{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+}
+.active-listing-container{
+	border: 2px solid lightgrey;
+	display: flex;
+	flex-direction: column;
+	width: 50%;
+	height: auto;
+	margin-left: 25px;
+	margin-top: 25px;
+	padding: 10px;
+
+}
+
+.title-heading{
+	display: flex;
+	flex-direction: column;
+}
+.category-heading{
+	border-bottom: 1px solid black;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: center;
+}
+.title{
+	width: 75%;
+}
+.category{
+	display: flex;
+	justify-content: flex-end;
+	width: 25%;
+	padding-right: 10px;
+
+}
+.active-listing-img{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+img {
+	width: 50%;
+	height: auto;
+	object-fit: cover;
+}
+.active-listing-des{
+	display: flex;
+	flex-direction: column;
+
+}
+.listing-header-container{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+}
+.active-title-list{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	width: 100%;
+}
+.active_title{
+	display: flex;
+	justify-content: flex-start;
+	width: 25%;
+}
+.active_title_end{
+	display: flex;
+	justify-content: flex-end;
+	width: 75%;
+}
+.active-watch-list{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 25%;
+}
+.active-listing-bid-container{
+	border: 2px solid lightgrey;
+	display: flex;
+	flex-direction: column;
+	width: 50%;
+	height: auto;
+	margin-left: 25px;
+	margin-top: 25px;
+	padding: 10px;
+}
+#bid_form_container{
+	display: flex;
+	flex-wrap: wrap;
+	border-top: 1px solid black;
+	width: 100%;
+	align-items: center;
+}
+#bid_form{
+	width: 100%;
+	margin-top: 10px;
+}
+#place_bid {
+	min-width: 20%;
+	max-width: 50%;
+	outline: none;
+	border: none;
+	border-bottom: 1px solid black;
+
+}
+.bid_error{
+	color: red;
+	font-weight: bold;
+}
+.bid_success{
+	color: green;
+	font-weight: bold;
+}
+.winning_bid{
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+#comments_container{
+	border: 2px solid lightgrey;
+	display: flex;
+	flex-direction: column;
+	width: 50%;
+	height: auto;
+	margin-left: 25px;
+	margin-top: 25px;
+	padding: 10px;
+}
+.comments_div{
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+}
+.user_comments_group{
+	border: 1px solid black;
+	border-radius: 10px;
+	margin: 10px;
+	padding: 7px;
+}
+.user_comments{
+	padding-left: 15px;
+}
+.user_comment_info{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	width: 100%;
+	font-weight: bold;
+}
+.user_comment_name{
+	display: flex;
+	justify-content: flex-start;
+	width: 25%;
+}
+.user_comment_date{
+	display: flex;
+	justify-content: flex-end;
+	width: 75%;
+}
+
+
+
+
+
+.create-container{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.form-container{
+	border: 2px solid lightgrey;
+	width: 50%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+}
+#create_form {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	width: auto;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+#create_form label{
+	font-weight: bold;	
+}
+#create_form .form-group, input, textarea, select{
+	width: 100%
+}
+.login-form{
+	width: 25%;
+}
+#create_form input{
+	text-align: center;
+}
+
+
+
+
+.watchlist_remove{
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	justify-content: flex-end;
+}

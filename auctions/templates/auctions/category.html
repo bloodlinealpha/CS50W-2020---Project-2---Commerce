@@ -1,0 +1,36 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Active Listings for {{ category }}:</h2>
+
+    {% for listing in listings %}
+    {% if listing.active == "Yes" %}
+    <div class="active-listing-center">
+        <div class="active-listing-container">
+    		<div  class="title-heading">
+    			<div class="category-heading">
+    			<!-- add title hyperlink -->
+    				<div class="title"><a href="{% url 'listing' listing.id %}"><h3>{{listing.title|title}}</h3></a></div>
+    				<div class="category"><a href="#">#{{ listing.category }}</a></div>
+    			</div>
+    			
+
+    			<div>Created By: {{ listing.user|title }} ... Date: {{ listing.create_date|date:"M d, Y" }} </div>
+    		</div>
+    	<!-- add image hyperlink -->
+    		<div class="active-listing-img">
+    			<img src="{{ listing.url }}">
+    		</div>
+    		<div>
+                <!-- remove starting price -->
+    			{% load humanize %}
+    			<div>Starting Bid: ${{ listing.starting_price|floatformat:"-2"|intcomma }}</div>
+    			<div>Current Bid:</div>
+    		</div>
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+
+
+{% endblock %}
